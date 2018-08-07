@@ -397,20 +397,280 @@ function afficherBonjour($nom) {
 echo afficherBonjour('Luc');  // si la fonction possède un paramètre, il faut obligatoirement lui envoyer une valeur lors de l'appel de la fonction. La fonction nous retourne le string "Bonjour Luc, comment  vas-tu ?" grâce au mot clé return qui s'y trouve. Il faut donc faire ici un echo pour afficher le résultat.
 
 
+echo '<br>';
+
 // Exercice : écrivez une fonction appelée appliqueTVA2 qui multiplie un nombre donnée par un taux donné.
 function appliqueTVA($nombre) {
     return $nombre * 1.2;
 }
 
 // Votre code : 
-
-function appliqueTVA2($nombre, $chiffre) {
-    return $nombre * $chiffre  ;
+function appliqueTVA2($nombre, $taux = 1.5) {   // on peut initialiser un paramètre par défaut si on ne reçoit pas de valeur : ici $taux prend la valeur 1.5  par défaut si on ne lui en donne pas.
+    return $nombre * $taux;
 }
-echo appliqueTVA2(7, 1.2);  
+
+echo appliqueTVA2(7, 1.2) . '<br>'; //  affiche 8.4 
+echo appliqueTVA2(10) . '<br>';   // $taux ayant une valeur par défaut dans les () de la fonction ci-dessus, on n'est pas obligé de lui donner un argument pour ce taux. Affiche 15 
+
+
+// ----------
+// Exercice :
+/* - Écrivez la fonction factureEssence() qui calcule le coût total de votre facture en fonction du nombre de litres d'essence que vous lui donnez en appelant la fonction. Cete fonction retourne la phrase "Votre facture est de X euros pour Y litres d'essence" où X et Y sont variables.
+
+    - Pour cela vous avez besoin du prix au litre. On vous donne une fonction prixLitre() qui vous communique ce prix. Utilisez-la donc dans votre fonction factureEssence().   
+*/
+
+function prixLitre() {
+    return rand(100, 200)/100;  // calcule un prix aléatoire entre 1 et 2 (€)
+}
+
+// Votre code : 
+function factureEssence($litreEssence) {
+    $prix = prixLitre() * $litreEssence;
+    return 'Votre facture est de '. $prix . ' € pour ' . $litreEssence . ' litres d\'essence ';
+}
+
+echo factureEssence(50);
+
+
+// ----------------------------------------------------
+echo '<h2> Espace local et espace global </h2>';
+// ----------------------------------------------------
+
+// De l'espace local à l'espace global :
+function jourSemaine() {
+    $jour = 'mardi';    // variable locale
+    return $jour;   // return permet de sortir une valeur de la fonction.
+}
+
+//echo $jour; // ne fonctionne pas car cette variable est locale à la fonction, donc connue et accessible uniquement au sein de cette fonction.
+
+echo jourSemaine() . '<br>'; // on récupère la valeur retournée par le return de la fonction : affiche "mardi".
+
+
+// De l'espace global à l'espace local : 
+$pays = 'France';   // variable globale
+
+function affichePays() {
+    global $pays;   // le mot clé global permet de récupérer une variable globale dans l'espace local de la fonction.
+    echo $pays; // on accède donc bien à cette variable
+}
+
+affichePays();  //  pas de echo car il est déjà dans la fonction
+
+
+
+// ------------------------------------------------------------
+echo '<h2> Les structures iétractives : les boucles </h2>';
+// ------------------------------------------------------------
+// Les boucles sont destinées à répéter des lignes de codes de façon automatique.
+
+
+// Boucle while : 
+$i = 0; // valeur de départ de la boucle
+
+while ($i < 3) {    // tant que $i est inférieur à 3, on entre dans la boucle.
+    // ici le code à répéter
+    echo "$i---";   // affiche "0---1---2---"
+    $i++;   //  on n'oublie pas d'incrémenter pour que la condition d'entrée dans la boucle devienne fausse à un moment donné (sinon on obtient une boucle infinie)
+}
+
+// Note : pas de ";" à la fin de while (=structure) 
+
+echo '<br>';
+
+// Exercice : à l'aide d'une boucle while, afficher dans un sélécteur les années depuis 1918 à 2018.
+
+/****************************** La syntaxe ****************************** 
+echo '<select>';
+    echo '<option>1918</option>';
+    echo '<option>...</option>';
+    
+echo '</select>';
+*/ 
+
+$annee = 1918;  // valeur de depart 
+echo "<select>";
+while ($annee <= 2018) {
+     echo "<option> $annee </option>"; 
+    $annee++;
+}
+echo "</select>";
+
+echo '<br>';
+
+
+// ---------------
+// Boucle do...while : 
+// La boucle do...while a la particularité de s'exécuter au moins une fois, puis tant que la condition de fin est vraie.
+
+$j = 0;
+
+do {
+    echo 'Je fais un tour de boucle';
+    $j++;
+} while ($j > 10);  // la condition est évaluée à false tout de suite (1 n'étant pas supérieur à 10), et pourtant la boucle a tourné une fois. Attention au  ";" après le while ! 
+
+// --------------
+// Boucle for : 
+// La boucle for est une autre syntaxe de la boucle while dans laquelle les paramètres valeur de départ, condition d'entrée dans la boucle et incrémentation sont regroupés dans les () du for.
+
+for ($i=0; $i < 10; $i++) { // tant que $i est inférieur à 10, on entre dans la boucle, puis on incrémente $i à la fin de la boucle avant de revenir dans la condition
+    echo $i . '<br>'; // on fait 10 tours pour les valeurs de $i allant de 0 à 9
+}
+
+// Exercice : afficher 12 <option> avec les valeurs de 1 à 12 à l'aide d'une boucle for.
+
+
+echo "<select>";
+for ($mois=1; $mois <= 12 ; $mois++) { 
+    //echo "<option> $mois </option>" . '<br>';   // autre façon de l'écrire :
+    echo '<option>' . $mois . '</option>'; 
+}
+echo "</select>";
+
+// ----------
+// Boucle foreach : 
+// Il existe aussi la boucle foreach que nous aborderons au chapitre des arrays. Elle sert à parcourir les éléments d'un tableau. 
+
+
+
+// ------------------------------------------------------------
+echo '<h2> Exercices de mélange HTML et PHP </h2>';
+// ------------------------------------------------------------
+
+// Exercice 1 : faites une boucle FOR qui affiche 0 à 9 sur la même ligne. Résultat attendu : "0123456789"
+
+    for ($i=0; $i <=9 ; $i++) { 
+        echo $i;
+    }
+    echo '<br>';
+    
+
+// Exercice 2 : faites une boucle FOR qui affiche 0 à 9 dans un table HTML.
+echo '<table border = "1">'; 
+    echo  '<tr>';
+        for ($i=0; $i <= 9 ; $i++) { 
+    echo '<td>' . $i . '</td>'; 
+        }
+    echo  '</tr>';
+echo '</table>';
+
+echo '<hr>';
+// Exercice 3 : faire une table HTML de 10 lignes et 10 colonnes, avec une valeur quelconque à l'intérieur dans un premer temps. Puis dans un second temps, numéroter les cellules de 0 à 99.
+
+$numero = 0;    // pour la 1ere cellule
+echo '<table border="1">';
+
+    for ($n=0; $n <= 9 ; $n++) { 
+        echo '<tr>';
+            for ($i=0; $i <= 9 ; $i++) { 
+                echo '<td>' . $numero . '</td>';
+                $numero++;
+            }
+        echo '</tr>';
+    }
+
+echo '</table>';
 
 
 
 
+// ------------------------------------------------------------
+echo '<h2> Les tableaux de données : arrays </h2>';
+// ------------------------------------------------------------
+// Un tableau, ou array en anglais, est déclaré comme un variable amélioré dans laquelle on stocke un multitude de valeurs. Ces valeurs peuvent être de n'importe quel type et possèdent un indice par défaut dont la numérotation commence à 0.
 
 
+// Bien souvent on récupérera les informations de la BDD sous forme d'array (ou éventuellement d'objet).
+
+
+// Déclarer un array : 
+$liste = array('Grégoire', 'Nathalie', 'Émilie', 'François', 'Georges');    // on déclare un array avec le mot clé "array"
+// echo $liste; // erreur ('array to string conversion') car on ne peut pas afficher directement un array en PHP
+
+// Pour afficher rapidement le contenu de ce tableau :
+echo '<pre>';
+var_dump($liste);   //affiche le contenu du tableau avec certaines infos en plus comme le type des éléments 
+echo '</pre>';  // balise HTML qui permet de formater l'affichage du var_dump
+
+
+echo '<pre>';   
+print_r($liste);  
+echo '</pre>';  
+
+// fonction utilisateur pour afficher un print_r :
+function debug($param) {
+    echo '<pre>';   
+    print_r($param);  
+    echo '</pre>';  
+}
+debug($liste);  // pour vérifier que notre fonction marche
+
+
+// -----
+// Autre moyen d'affecter des valeurs dans un tableau :
+$tab = ['France', 'Italie', 'Espagne', 'Portugal']; // on peut utiliser la notation entre crochets pour déclarer un array
+
+$tab[] = 'Suisse';  // les crochets vides permettent d'ajouter une valeur à la fin de notre array $tab 
+
+debug($tab);
+
+// afficher la valeur "Italie" de l'array $tab : 
+echo $tab[1] . '<br>';   // pour accéder à une valeur d'un array, on met son indice entre [] après le nom de cet array. 
+
+
+// --------
+// Tableau associatif : 
+// Dans un tableau associatif, nous pouvons choisir le nom des indices : 
+$couleur = array(
+                'j' => 'jaune',
+                'b' => 'bleu',
+                'v' => 'vert'
+            );
+
+
+// Pour accéder à un élément du tableau associatif : 
+echo 'La seconde couleur de notre tableau est le ' . $couleur['b'] . '<br>';
+echo "La seconde couleur de notre tableau est le  $couleur[b]  <br>";   // affiche aussi "bleu". Un array écrit dans des guillemts ou des quotes perd les quotes autour de son indice. 
+
+
+// Compter le nombre d'éléments contenus dans un array : 
+echo 'Taille du tableau : ' . count($couleur) . '<br>'; // affiche 3 (éléments)
+echo 'Taille du tableau : ' . sizeof($couleur) . '<br>'; // sizeof() est pareil que count() dont il est un alias
+
+
+
+// ------------------------------------------------------------
+echo '<h2> La boucle foreach pour les arrays </h2>';
+// ------------------------------------------------------------
+// foreach est un moyen simple de passer en revue un tableau. Elle fonctionne uniquement sur les tableaux et les objets.
+
+foreach ($tab as $valeur) { // le mot clé "as" fait partie de la structure du foreach et est obligatoire. La variable $valeur (que l'on nomme comme on veut) vient parcourir les valeurs du tableau $tab. Quand il y a qu'une seule variable après "as", elle parcourt systématiquement les VALEURS.
+    echo $valeur . '<br>';  // on affiche successivement à chaque tour de boucle les éléments du tableau. 
+}
+
+// Parcourir la colonne des indices ET la colonne des valeurs :
+foreach ($tab as $indice => $valeur) {  // quand il y a 2 variables après "as", la première parcourt toujours les INDICES, et la seconde parcourt toujours les VALEURS
+    echo $indice . ' correspond à ' . $valeur . '. <br>';
+} 
+
+
+// Exercice : 
+/* - écrivez un array avec les indices prenom, nom, email et téléphone et mettez y pour valeur des informations fictives. Remarque, cet array concerne qu'une seule personne. 
+
+    - Puis avec une boucle foreach, affichez les valeurs de votre array dans des <p>, sauf le prenom qui doit être affiché dans un <h3>.
+*/ 
+
+$infos = array(
+    'prenom ' => 'papaoumar',
+    'nom ' => 'mbaye',
+    'email ' => 'papaoumar.mbaye@lepoles.com',
+    'telephone ' => '0101010101'
+);
+foreach ($infos as $indice[0] => $valeur) {
+   echo $indice . ': ' . $valeur . '<br>';
+   if ($indice[0] == 'prenom ') {
+      echo "<h3>"$indice[0] . $valeur[0] "</h3>";
+   }
+}
