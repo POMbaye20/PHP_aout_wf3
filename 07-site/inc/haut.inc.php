@@ -47,7 +47,7 @@
 
                   // menu si internaute est un admin : 
                   if (internauteEstConnecteEtAdmin()) {
-                    echo '<li><a class="nav-link" href="'. RACINE_SITE . 'gestion_boutique.php">Gestion de la boutique</a></li>';
+                    echo '<li><a class="nav-link" href="'. RACINE_SITE . 'admin/gestion_boutique.php">Gestion de la boutique</a></li>';
                   }                    
 				      ?>
         	    </ul>

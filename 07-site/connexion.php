@@ -1,6 +1,19 @@
 <?php
-
 require_once 'inc/init.inc.php';
+
+// 2- Déconnesion de l'internaute : 
+if (isset($_GET['action']) && $_GET['action'] == 'deconnexion') {   // si l'internaute a cliqué sur "se déconnecter"
+    session_destroy();  // on supprime toute la session du membre. Rappel : ctte instruction ne s'exécute qu'en fin des script.
+}
+
+// 3- On vérifie si l'internaute est déjà connecté :
+if (internauteEstConnecte()) {  // s'il est connecté, on le renvoie vers son profil :
+    header('location:profil.php');
+    exit(); // pour quitter le script
+}
+
+
+
 // debug($_POST);
 
 // 1- Traitement du formulaire :
@@ -25,7 +38,7 @@ require_once 'inc/init.inc.php';
             $_SESSION['membre'] = $informations;    //  nous créons une session avec les infos du membre qui proviennent de la BDD
 
             header('location:profil.php');
-            exit(); // on redirige l'internaute vers sa page de profil, et on quitte ce script avec exit().
+            exit(); // on redirige l'internaute vers sa page de profil, et on quitte ce script avec la fonction exit().
 
         }else{
             // Sinon c'est qu'il y a erreur sur les identifiants (il n'existe pas ou pas pour le même membre)
