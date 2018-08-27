@@ -7,6 +7,20 @@ if (!internauteEstConnecteEtAdmin()) {
     exit();
 }
 
+// 3- Suppresion d'un produit
+debug($_GET);
+
+if(isset($_GET['id_produit']))  {
+    $resultat = executeRequete("DELETE FROM produit WHERE id_produit = :id_produit", array(':id_produit' => $_GET['id_produit']));
+
+    if ($resultat->rowCount() == 1) {   // si j'ai 1 ligne dans $resultat, j'ai supprimé 1 produit
+        $contenu .= '<div class="bg-success"> Le produit a bien été supprimé </div>';
+    } else {
+        $contenu .= '<div class="bg-danger"> Erreur lors de la suppresion du produit !</div>';
+    }
+}
+
+
 // 2- Affichage des produits dans le back-office : 
 // Exercice : afficher tous les produits sous forme de table HTML que vous stockez dans la variable $contenu. Tous les champs doivent être affichés. Pour la photo, afficher une image (de 90px de coté).
 
@@ -15,7 +29,7 @@ $resultat = $pdo->query("SELECT * FROM produit");
 $contenu .= '<table border="1">';
     // La ligne d'entêtes : 
     $contenu .= '<tr>';
-    $contenu .= '<th>id_produit</th>';
+        $contenu .= '<th>id_produit</th>';
         $contenu .= '<th>Référence</th>';
         $contenu .= '<th>Catégorie</th>';
         $contenu .= '<th>Titre</th>';
@@ -26,26 +40,26 @@ $contenu .= '<table border="1">';
         $contenu .= '<th>Photo</th>';
         $contenu .= '<th>Prix</th>';
         $contenu .= '<th>Stock</th>';
+        $contenu .= '<th>Action</th>';
     $contenu .= '</tr>';
 
     // Affichage des autres lignes :
     while ($ligne = $resultat->fetch(PDO::FETCH_ASSOC)) {
         $contenu .='<tr>';
             // Affichage des infos de chaque ligne $ligne : 
-        foreach ($ligne as $indice => $value) {
-            
+        foreach ($ligne as $indice => $value) {            
             if ($indice == 'photo') {
-                $contenu .= '<td><img src="../'. $value .'" width=90" alt=""></td>';
+                $contenu .= '<td><img src="../'. $value .'" width=90" alt="' . $ligne['titre'] . '"></td>';
             } else {
                 $contenu .= '<td>' . $value . '</td>';
             }
         }// fin foreach
+
+            $contenu .='<td><a href="?id_produit='. $ligne['id_produit'] . '" onclick="return(confirm(\' Etes-vous certain de vouloir supprimer ce produit ?\'))"   >supprimer</a></td>';  // $ligne['id_produit] contient l'id de chaque produit à chaque tour de boucle while : ainsi le lien est dynamique, l'id passé en GET change selon le produit sur lequel je clique.
+
         $contenu .= '</tr>';
     }
 $contenu .= '</table>';
-
-
-
 
 
 // ---------------------------- AFFICHAGE ---------------------------
