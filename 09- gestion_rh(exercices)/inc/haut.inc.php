@@ -4,7 +4,7 @@
 
     <meta charset="utf-8">
    
-	<title>Ma Boutique</title>
+	<title>Salariés entreprises</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -22,7 +22,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <!-- La marque -->
-       <a class="navbar-brand" href="<?php echo RACINE_SITE . 'boutique.php'; ?>">MA BOUTIQUE</a>
+       <a class="navbar-brand" href="<?php echo RACINE_SITE . 'boutique.php'; ?>">LePoleS</a>
        
         <!-- Le burger -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav1" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,6 @@
         <div class="collapse navbar-collapse" id="nav1">
         	<ul class="navbar-nav ml-auto">
             	<?php
-                  echo '<li><a class="nav-link" href="'. RACINE_SITE . 'boutique.php">Boutique</a></li>';
           
                   // menu si l'internaute est connecté
                   if (internauteEstConnecte()) {
@@ -47,8 +46,8 @@
 
                   // menu si internaute est un admin : 
                   if (internauteEstConnecteEtAdmin()) {
-                    echo '<li><a class="nav-link" href="'. RACINE_SITE . 'admin/gestion_boutique.php">Gestion de la boutique</a></li>';
-                    echo '<li><a class="nav-link" href="'. RACINE_SITE . 'admin/gestion_membre.php">Gestion des membres</a></li>';
+                    echo '<li><a class="nav-link" href="'. RACINE_SITE . 'admin/gestion_boutique.php">Gestion rh</a></li>';
+                    echo '<li><a class="nav-link" href="'. RACINE_SITE . 'admin/gestion_membre.php">Gestion des salariés</a></li>';
                   }                    
 				      ?>
         	    </ul>

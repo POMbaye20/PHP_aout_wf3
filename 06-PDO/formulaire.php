@@ -40,7 +40,7 @@ if (!empty($_POST)) {   // si $_POST est rempli c'est que le formulaire a été 
     if (!isset($_POST['date_embauche']) || !validateDate($_POST['date_embauche'], 'Y-m-d')) $message .= '<div>La date n\'est pas valide </div>';    // on  entre dans la condition si l'indice "date_embauche" n'existe pas OU que la fonction validateDate() me retourne false (attention à la présence du "!")
 
 
-    // Inseetion en BDD si il n'y a pas de message d'erreur : 
+    // Insertion en BDD si il n'y a pas de message d'erreur : 
     if (empty($message)) {  // si $message est vide c'est qu'il n'y a pas d'erreur
 
         // On échappe toutes les valeurs de $_POST : 

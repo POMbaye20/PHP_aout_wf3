@@ -32,5 +32,5 @@ require_once 'inc/haut.inc.php';
     <p>Votre code postal : <?php echo $code_postal; ?></p>
     <p>Votre ville : <?php echo $ville; ?></p>
 
-<php
+<?php
 require_once 'inc/bas.inc.php';
