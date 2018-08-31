@@ -1,7 +1,7 @@
 <?php
 require_once 'inc/init.inc.php';
 
-// 2- Déconnesion de l'internaute : 
+// 2- Déconnexion de l'internaute : 
 if (isset($_GET['action']) && $_GET['action'] == 'deconnexion') {   // si l'internaute a cliqué sur "se déconnecter"
     session_destroy();  // on supprime toute la session du membre. Rappel : ctte instruction ne s'exécute qu'en fin des script.
 }

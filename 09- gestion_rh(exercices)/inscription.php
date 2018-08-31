@@ -27,22 +27,13 @@ $pdo = new PDO('mysql:host=localhost;dbname=gestion_rh', 'root', '', array(PDO::
 
     if (!empty($_POST)) { // traitement du formulaire
 
-    if (!isset($_POST['nom']) || strlen($_POST['nom']) < 2 || strlen($_POST['nom']) > 20) $message .= '<div>Le nom doit comporter en 2 et 20 caractères.</div>'; 
+        // Email : 
+        if (!isset($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) $message .= '<div class="bg-danger">Email est incorrect </div>';
 
-    // Prénom : 
-    if (!isset($_POST['prenom']) || strlen($_POST['prenom']) < 2 || strlen($_POST['prenom']) > 20) $message .= '<div>Le prénom doit comporter en 2 et 20 caractères.</div>'; 
+        // Mot de passe : 
+        if (!isset($_POST['mdp']) || strlen($_POST['mdp']) < 4 || strlen($_POST['mdp']) > 20) $message .= '<div class="bg-danger">Le mot de passe doit comporter en 4 et 20 caractères.</div>';
 
-    // Date de naissance : 
-    if (empty($_POST['date_naissance'])) $message .= '<div>Veuillez indiquer votre date de naissance.</div>'; 
-
-    // Civilité : 
-    if (empty($_POST['civilite'])) $message .= '<div>Veuillez préciser la civilité.</div>'; 
-
-    // Poste : 
-    if (empty($_POST['poste'])) $message .= '<div>Veuillez préciser votre poste.</div>'; 
-
-    // Service : 
-    if (empty($_POST['service'])) $message .= '<div>Veuillez préciser votre service dans lequel vous vous trouvez.</div>'; 
+    
 
     // ---- fin du b)
 
@@ -57,14 +48,10 @@ $pdo = new PDO('mysql:host=localhost;dbname=gestion_rh', 'root', '', array(PDO::
         }
 
 
-        $result = $pdo->prepare("INSERT INTO salaries (nom, prenom, date_naissance, civilite, poste, id_service) VALUES (:nom  , :prenom, :date_naissance, :civilite, :poste, :id_service ) ");
+        $result = $pdo->prepare("INSERT INTO admin (email, mdp) VALUES (:email, :mdp) ");
 
-        $result->bindParam(':nom', $_POST['nom']);
-        $result->bindParam(':prenom', $_POST['prenom']);
-        $result->bindParam(':date_naissance', $_POST['date_naissance']);
-        $result->bindParam(':civilite', $_POST['civilite']);
-        $result->bindParam(':poste', $_POST['poste']);
-        $result->bindParam(':id_service', $_POST['id_service']);
+        $result->bindParam(':email', $_POST['email']);
+        $result->bindParam(':mdp', $_POST['mdp']);
 
         $req = $result->execute();  // la méthode execute() renvoie un booléen selon que la requête a marché (true) ou pas (false)
 
@@ -85,7 +72,7 @@ $pdo = new PDO('mysql:host=localhost;dbname=gestion_rh', 'root', '', array(PDO::
 }   // fin de if (!empty($_POST))
 
 // --------------------------- AFFICHAGE ---------------------------
-require_once 'inc/haut.inc.php';
+require_once 'inc/le_haut.inc.php';
 
 
 
@@ -113,37 +100,18 @@ require_once 'inc/haut.inc.php';
     <?php echo $message; ?>
 
     <form method="post" action="">
+
+     
+
     
         <div>
-            <label for="nom">Nom</label><br>
-            <input type="text" name="nom" id="nom">
-        </div>
-    
-        <div>
-            <label for="prenom">Prénom</label><br>
-            <input type="text" name="prenom" id="prenom">
-        </div>
-    
-        <div>
-            <label for="date_naissance">Date de naissance</label><br>
-            <input type="date" name="date_naissance" id="date_naissance">
+            <label for="email">Email</label><br>
+            <input type="text" name="email" id="email">
         </div>
         
         <div>
-            <label for="civilite">Civilité</label><br>
-            <input type="radio" name="civilite" value="Madame" checked> Madame
-            <input type="radio" name="civilite"  value="Monsieur"> Monsieur
-        </div>
-
-         <div>
-            <label for="poste">Poste</label><br>
-            <input type="text" name="poste" id="poste">
-       
-        </div>
-
-         <div>
-            <label for="service">Service</label><br>
-            <input type="text" name="service" id="service"> 
+            <label for="mdp">Mot de passe</label><br>
+            <input type="password" name="mdp" id="mdp">
         </div>
 
        <div><input type="submit" value="Enregistrement"></div>
@@ -158,6 +126,6 @@ require_once 'inc/haut.inc.php';
 </html>
 
 <?php 
-require_once 'inc/bas.inc.php';
+require_once 'inc/le_bas.inc.php';
 
 
