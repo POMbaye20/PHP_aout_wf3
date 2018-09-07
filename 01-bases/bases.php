@@ -391,7 +391,7 @@ tiret();    // pour exécuter une fonction, on l'appelle par son nom suivi d'une
 function afficherBonjour($nom) {
     return 'Bonjour ' . $nom . ', comment vas-tu ?';     //  alternative :
     // return "Bonjour $nom, comment vas-tu ?";
-    echo 'TEST'; /// après un return, les instructions de la fonction ne sont pas lues 
+    echo 'TEST'; // après un return, les instructions de la fonction ne sont pas lues 
 }
 
 echo afficherBonjour('Luc');  // si la fonction possède un paramètre, il faut obligatoirement lui envoyer une valeur lors de l'appel de la fonction. La fonction nous retourne le string "Bonjour Luc, comment  vas-tu ?" grâce au mot clé return qui s'y trouve. Il faut donc faire ici un echo pour afficher le résultat.
@@ -586,7 +586,7 @@ echo '<h2> Les tableaux de données : arrays </h2>';
 
 
 // Déclarer un array : 
-$liste = array('Grégoire', 'Nathalie', 'Émilie', 'François', 'Georges');    // on déclare un array avec le mot clé "array"
+   // on déclare un array avec le mot clé "array"
 // echo $liste; // erreur ('array to string conversion') car on ne peut pas afficher directement un array en PHP
 
 // Pour afficher rapidement le contenu de ce tableau :

@@ -65,11 +65,11 @@ $contenu .= '</table>';
         $contenu .= '<p>Année de rencontre : '. $contact['annee_rencontre'] .'</p>';
         $contenu .= '<p>Type de contact : '. $contact['type_contact'] .'</p>';
     } else {
-        $contenu .= '<p>Ce contact n\'existe pas.</p>';
+        $contenu .= '<p>Ce film n\'existe pas.</p>';
     }
         
      
-} // fin du if (isset($_GET['id_contact']))
+} // fin du if (isset($_GET['id_movies']))
 
 
 
